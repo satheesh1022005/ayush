@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://ayush-4pws.onrender.com");
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -88,18 +88,12 @@ const Chat = () => {
       </Flex>
 
       {/* Messages */}
-      <VStack
-        flex="1"
-        p="4"
-        spacing="4"
-        overflowY="auto"
-        bg="gray.50"
-      >
+      <VStack flex="1" p="4" spacing="4" overflowY="auto" bg="gray.50">
         {messages.map((msg, index) => (
           <Flex
             key={index}
-            alignSelf={msg.sender === userId ? "flex-end" : "flex-start"} 
-            bg={msg.sender === userId ? "teal.300" : "gray.200"} 
+            alignSelf={msg.sender === userId ? "flex-end" : "flex-start"}
+            bg={msg.sender === userId ? "teal.300" : "gray.200"}
             color={msg.sender === userId ? "white" : "black"}
             borderRadius="lg"
             p="3"

@@ -20,7 +20,7 @@ const Bot = () => {
   };
 
   const handleSendMessage = () => {
-    fetch("https://ayush-4pws.onrender.com/process", {
+    fetch("https://ayush-bot-02ef.onrender.com/process", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
