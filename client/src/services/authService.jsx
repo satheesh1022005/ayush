@@ -1,16 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://localhost:5000/api/auth';
+const API_URL = "https://ayush-4pws.onrender.com/api/auth";
 
 const getAuthHeader = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  return user && user.token ? { 'x-auth-token': user.token } : {};
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user && user.token ? { "x-auth-token": user.token } : {};
 };
 export const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;
 };
-
 
 export const verifyToken = async () => {
   const response = await axios.get(`${API_URL}/verifyToken`, {
@@ -37,29 +36,29 @@ export const login = async (userData) => {
       token: response.data.token,
       userInfo: response.data.userInfo,
     };
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     return user;
   } else {
-    throw new Error('Login failed');
+    throw new Error("Login failed");
   }
 };
 export const resetPassword = async ({ mobile, otp, newPassword }) => {
   const response = await axios.post(`${API_URL}/resetPassword`, {
-      mobile,
-      otp,
-      newPassword
+    mobile,
+    otp,
+    newPassword,
   });
   return response.data;
 };
 
-export const forgotPassword = async ({mobile}) => {
+export const forgotPassword = async ({ mobile }) => {
   try {
-      const response = await axios.post(`${API_URL}/forgotPassword`, { mobile });
-      return response.data;
+    const response = await axios.post(`${API_URL}/forgotPassword`, { mobile });
+    return response.data;
   } catch (error) {
-      throw new Error('Error sending password reset mobile.');
+    throw new Error("Error sending password reset mobile.");
   }
 };
 export const logout = () => {
-  localStorage.removeItem('user');
+  localStorage.removeItem("user");
 };

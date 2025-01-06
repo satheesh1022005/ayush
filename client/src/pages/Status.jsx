@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/Landing/Header';
-import './Status.css';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import CertificateGenerator from './CertificateGenerator';
+import React, { useEffect, useState } from "react";
+import Header from "../components/Landing/Header";
+import "./Status.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import CertificateGenerator from "./CertificateGenerator";
 function RegistrationProcess() {
   const [status, setStatus] = useState(0);
-  const [company,setCompany]= useState({});
+  const [company, setCompany] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,14 +15,17 @@ function RegistrationProcess() {
 
   const fetchCompany = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const data = JSON.parse(localStorage.getItem('data'));
+      const user = JSON.parse(localStorage.getItem("user"));
+      const data = JSON.parse(localStorage.getItem("data"));
 
-      const response = await axios.get(`http://localhost:5000/api/status/startup/${data._id}`, {
-        headers: {
-          'x-auth-token': user.token,
-        },
-      });
+      const response = await axios.get(
+        `https://ayush-4pws.onrender.com/api/status/startup/${data._id}`,
+        {
+          headers: {
+            "x-auth-token": user.token,
+          },
+        }
+      );
 
       console.log(response.data.company.message); // Logging the data status for debugging
 
@@ -46,9 +49,9 @@ function RegistrationProcess() {
           setStatus(0);
           break;
       }
-      setCompany(response.data.company)
+      setCompany(response.data.company);
     } catch (error) {
-      console.error('Fetch error:', error);
+      console.error("Fetch error:", error);
     }
   };
 
@@ -65,7 +68,10 @@ function RegistrationProcess() {
     <>
       <Header />
       <div className="container1">
-        <button className="mt-5 mb-5 bg-secondary p-4 pt-2 pb-2 text-white" onClick={() => navigate('/')}>
+        <button
+          className="mt-5 mb-5 bg-secondary p-4 pt-2 pb-2 text-white"
+          onClick={() => navigate("/")}
+        >
           Back
         </button>
 
@@ -77,10 +83,24 @@ function RegistrationProcess() {
           {stepsData.map((step, index) => (
             <div
               key={index}
-              className={`step1 ${step.active ? "active1" : ""} ${status > index && "bg-primary text-white"}`}
+              className={`step1 ${step.active ? "active1" : ""} ${
+                status > index && "bg-primary text-white"
+              }`}
             >
-              <div className={`number1 ${status > index && "bg-primary text-white"}`}>{step.number}</div>
-              <div className={`title1 ${status > index && "bg-primary text-white"}`}>{step.title}</div>
+              <div
+                className={`number1 ${
+                  status > index && "bg-primary text-white"
+                }`}
+              >
+                {step.number}
+              </div>
+              <div
+                className={`title1 ${
+                  status > index && "bg-primary text-white"
+                }`}
+              >
+                {step.title}
+              </div>
             </div>
           ))}
 
@@ -115,7 +135,10 @@ function RegistrationProcess() {
               {`Unfortunately, your application was rejected by the government officials. The reason was ${company.message}`}
             </p>
             <div className="mt-4">
-              <button className="bg-warning text-dark p-2 rounded" onClick={() => navigate('/')}>
+              <button
+                className="bg-warning text-dark p-2 rounded"
+                onClick={() => navigate("/")}
+              >
                 Go to Home
               </button>
             </div>
